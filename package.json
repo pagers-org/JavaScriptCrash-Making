@@ -1,0 +1,35 @@
+{
+  "name": "javascript-making",
+  "version": "1.0.0",
+  "description": "🔨 프론트엔드 끝장내기 제 2탄, Making from Javascript! 🔨",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/InSeong-So/JavascriptCrash-Making.git"
+  },
+  "keywords": [],
+  "author": "InSeong-So",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/InSeong-So/JavascriptCrash-Making/issues"
+  },
+  "homepage": "https://github.com/InSeong-So/JavascriptCrash-Making#readme",
+  "devDependencies": {
+    "@babel/core": "7.15.5",
+    "@babel/plugin-transform-runtime": "7.15.0",
+    "@babel/preset-env": "7.15.6",
+    "babel-eslint": "10.1.0",
+    "babel-jest": "27.1.1",
+    "babel-loader": "8.2.2",
+    "eslint": "7.32.0",
+    "eslint-config-prettier": "8.3.0",
+    "eslint-plugin-prettier": "4.0.0",
+    "isomorphic-fetch": "3.0.0",
+    "jest": "27.1.1",
+    "jest-plugin-context": "2.9.0",
+    "prettier": "2.4.0"
+  }
+}

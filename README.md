@@ -4,7 +4,24 @@
 <br>
 
 ## 😎 진행 순서 😎
-> 생각 중✍🏻
+
+> 최초 1회
+1. Editor 통일 : VSCode
+2. Extension 설치
+   1. Night Owl
+   2. Material Icon Theme
+   3. Bracket Pair Colorizer 2
+   4. Color Highlight
+   5. Liver Server
+   6. JavaScript (ES6) code snippets
+   7. ident-rainbow
+   8. Highlight Matching Tag
+3. ESLint, Prettier 설정(+ jest)
+
+> 진행
+1. 개념 설명 및 문제 안내
+2. 구현
+3. 추가 설명 및 리뷰, 피드백(생략 가능)
 
 <br>
 
