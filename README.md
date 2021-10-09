@@ -18,12 +18,12 @@
   - 1️⃣ 배열 초기화 - 매개변수를 효율적으로 제어하기(Rest, default)
   - 2️⃣ 배열 뒤집기(Array)
   - 3️⃣ 평균, 최대값, 누적합, 중복 횟수, 중첩 배열 평탄화, 중복 요소 제거하기(Array)
-  - 4️⃣ 단어의 개수 구하기(String)
-  - 5️⃣ 객체 깊은 복사하기(Object)
-  - 6️⃣ 주어진 형태로 객체 출력하기(Object)
-  - 7️⃣ 비동기 프로그래밍(Promise, async/await)
-  - 8️⃣ 유효성 검사하기(HTML/DOM)
-  - 9️⃣
+  - 4️⃣ 로또 만들기(Number, Math, Array)
+  - 5️⃣ 단어의 개수 구하기(String)
+  - 6️⃣ 객체 깊은 복사하기(Object)
+  - 7️⃣ 주어진 형태로 객체 출력하기(Object)
+  - 8️⃣ 비동기 프로그래밍(Promise, async/await)
+  - 9️⃣ 유효성 검사하기(HTML/DOM)
   - 🔟
 
 <br>
