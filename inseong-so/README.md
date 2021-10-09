@@ -139,3 +139,73 @@ ES6 메서드는 자신을 바인딩한 객체를 가리키는 내부 슬롯 Hom
       arr.map((str, index) => [index, [str, str.length]]).flat(2);
       // -> [[0, ['hello', 5]], [1, ['world', 5]]] => [0, 'hello', 5, 1, 'world', 5]
       ```
+
+- Number
+
+  > 프로퍼티
+  - *.EPSILON : 부동소수점으로 인해 발생하는 오차를 해결하기 위해 사용
+      ```js
+      function isEqual(a, b){
+        // a와 b를 뺀 값의 절대값이 Number.EPSILON보다 작으면 같은 수로 인정한다.
+        return Math.abs(a - b) < Number.EPSILON;
+      }
+
+      isEqual(0.1 + 0.2, 0.3); // -> true
+      ```
+  - *.MAX_VALUE : 표현 가능한 가장 큰 양수 값. Infinity 이전 값
+  - *.MIN_VALUE : 표현 가능한 가장 작은 양수 값. 0 다음 값
+  - *.MAX_SAFE_INTEGER : 안전하게 표현 가능한 가장 큰 정수 값
+  - *.MIN_SAFE_INTEGER : 안전하게 표현 가능한 가장 작은 정수 값
+  - *.POSITIVE_INFINITY : 양의 무한대. Infinity와 동일
+  - *.NEGATIVE_INFINITY : 음의 무한대. -Infinity와 동일
+  - *.NaN : 숫자가 아님. globalThis.NaN과 동일
+
+  > 메서드 : 대상을 암묵적 타입 변환하지 않는다.
+  - *.isFinite(item) : 정상적인 유한수(Infinity)인지 검사하여 boolean 반환
+    - globalThis의 isFinite와 다름.
+  - *.isInteger(item) : 정수인지 검사하여 boolean 반환
+  - *.isNaN(item) : NaN인지 검사하여 boolean 반환
+  - *.isSafeInteger(item) : 안전한 정수인지 검사하여 boolean 반환
+  - *.toExponential(x) : 지수 표기법으로 변환하여 문자열로 반환. 기본값은 주어진 값을 나타내는데 필요한 자릿수이다.
+    - 지수 표기법 : 매우 크거나 작은 숫자를 표기할 때 주로 사용, `e(Exponent)` 앞에 있는 숫자에 10의 n승을 곱하는 형식으로 나타낸다. 
+      ```js
+      (77.1234).toExponential();  // -> "7.71234e+1"
+      (77.1234).toExponential(4); // -> "7.7123e+1"
+      (77.1234).toExponential(2); // -> "7.71e+1"
+      77.toExponential(); // -> SyntaxError: Invalid or unexpected token
+      77.1234.toExponential(); // -> "7.71234e+1"
+      77 .toExponential(); // -> "7.7e+1"
+      ```
+  - *.toFixed(x) : 숫자를 반올림하여 문자열로 반환. 소수점 이하의 매개변수만큼의 자릿수를 유효하게 판단하고 나머지를 반올림한다. 기본값은 0이다.
+      ```js
+      // 소수점 이하 반올림. 인수를 생략하면 기본값 0이 지정된다.
+      (12345.6789).toFixed(); // -> "12346"
+      // 소수점 이하 1자리수 유효, 나머지 반올림
+      (12345.6789).toFixed(1); // -> "12345.7"
+      // 소수점 이하 2자리수 유효, 나머지 반올림
+      (12345.6789).toFixed(2); // -> "12345.68"
+      // 소수점 이하 3자리수 유효, 나머지 반올림
+      (12345.6789).toFixed(3); // -> "12345.679"
+      ```
+  - *.toPrecision(x) : 나머지 자릿수를 반올림하여 문자열로 반환. 전체 자릿수로 표현할 수 없는 경우 지수 표기법으로 결과 반환. 기본값은 0이다.
+      ```js
+      // 전체 자리수 유효. 인수를 전달하지 않으면 기본값 0이 전달된다.
+      (12345.6789).toPrecision(); // -> "12345.6789"
+      // 전체 1자리수 유효, 나머지 반올림
+      (12345.6789).toPrecision(1); // -> "1e+4"
+      // 전체 2자리수 유효, 나머지 반올림
+      (12345.6789).toPrecision(2); // -> "1.2e+4"
+      // 전체 6자리수 유효, 나머지 반올림
+      (12345.6789).toPrecision(6); // -> "12345.7"
+      ```
+  - *.toString(x) : 진법을 나타내는 2~36 사이의 정수값을 인수로 전달 가능, 기본값은 10진법이다.
+      ```js
+      // 인수를 생략하면 10진수 문자열을 반환한다.
+      (10).toString(); // -> "10"
+      // 2진수 문자열을 반환한다.
+      (16).toString(2); // -> "10000"
+      // 8진수 문자열을 반환한다.
+      (16).toString(8); // -> "20"
+      // 16진수 문자열을 반환한다.
+      (16).toString(16); // -> "10"
+      ```
