@@ -15,5 +15,5 @@ Stack.prototype.size = function () {
 };
 
 Stack.prototype.peek = function () {
-  return this.array[this.array.length - 1];
+  return this.array.at(-1);
 };
