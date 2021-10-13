@@ -238,40 +238,133 @@ const getDuplicated = (type, arr) => {
 };
 console.log(getDuplicated('for', duplicateArray));
 
-// 7. 중복 요소 제거하기 : [
-//   'a',
-//   () => {
-//     console.log(1);
-//   },
-//   'c',
-//   'd',
-//   1,
-//   { name: 'amy', age: 16 },
-//   3,
-//   4,
-//   [1, 2, 3, 4],
-//   2,
-// ]
+// 7. 중복 요소 제거하기
+const removeToDuplicates = (type, arr) => {
+  const _arr = Array.from(arr);
+  switch (type) {
+    case 'for': {
+      const uniqueArray = [];
+      for (let item of arr) {
+        if (typeof item === 'object') {
+          item = JSON.stringify(item);
+        } else if (typeof item === 'function') {
+          item = item.toString();
+        }
 
-// 8. 중첩 배열 평탄화 : [
-//   'a',
-//   () => {
-//     console.log(1);
-//   },
-//   'c',
-//   'd',
-//   1,
-//   { name: 'amy', age: 16 },
-//   3,
-//   4,
-//   1,
-//   2,
-//   3,
-//   4,
-//   2,
-// ]
+        if (uniqueArray.indexOf(item) === -1) {
+          uniqueArray.push(item);
+        }
+      }
+
+      return uniqueArray;
+    }
+    case 'forEach': {
+      let uniqueProperty = new Set();
+      _arr.forEach(item => {
+        if (typeof item === 'object') {
+          uniqueProperty.add(JSON.stringify(item));
+        } else if (typeof item === 'function') {
+          uniqueProperty.add(item.toString());
+        } else {
+          uniqueProperty.add(item);
+        }
+      });
+      return [...uniqueProperty];
+    }
+    case 'reduce': {
+      const uniqueProperty = _arr.reduce((acc, currentItem) => {
+        if (typeof currentItem === 'object') {
+          acc.add(JSON.stringify(currentItem));
+        } else if (typeof currentItem === 'function') {
+          acc.add(currentItem.toString());
+        } else {
+          acc.add(currentItem);
+        }
+        return acc;
+      }, new Set());
+      return [...uniqueProperty];
+    }
+    default:
+      return _arr;
+  }
+};
+console.log(removeToDuplicates('reduce', duplicateArray));
+
+// 8. 중첩 배열 평탄화
+const setFlatToArray = (type, arr) => {
+  const _arr = Array.from(arr);
+  switch (type) {
+    case 'flat': {
+      return duplicateArray.flat();
+    }
+    case 'forEach': {
+      let targetIndex = 0;
+      let targetItem = null;
+      _arr.forEach((item, index) => {
+        if (item instanceof Array) {
+          [targetIndex, targetItem] = [index, item];
+        }
+      });
+
+      _arr.splice(targetIndex, 1, ...targetItem);
+
+      return _arr;
+    }
+    case 'reduce': {
+      const flattedArray = duplicateArray.reduce((acc, currentItem) => {
+        if (currentItem instanceof Array) {
+          acc = [...acc, ...currentItem];
+        } else {
+          acc.push(currentItem);
+        }
+        return acc;
+      }, []);
+      return flattedArray;
+    }
+    default:
+      return _arr;
+  }
+};
+
+console.log(setFlatToArray('forEach', duplicateArray));
 // =========================================================
 
 // =========================================================
 // 9. 로또 만들기
+class Lotto {
+  constructor() {
+    this.reset();
+  }
+
+  reset() {
+    this._lottoArray = [];
+    this._drawnNumbers = [];
+  }
+
+  start() {
+    while (this._lottoArray.length < 6) {
+      const lottoNumber = this.lottoNumber;
+      if (this._drawnNumbers.indexOf(lottoNumber) !== -1) continue;
+      this._lottoArray.push(lottoNumber);
+      this._drawnNumbers.push(lottoNumber);
+    }
+
+    console.log(this._lottoArray);
+
+    this.end();
+  }
+
+  end() {
+    console.log(`이번 로또 당첨 번호는 ${this._lottoArray.join('번 ')}입니다!`);
+    this.reset();
+  }
+
+  get lottoNumber() {
+    return Math.floor(Math.random() * 44) + 1;
+  }
+}
+
+const lotto = new Lotto();
+lotto.start();
+
 // =========================================================
