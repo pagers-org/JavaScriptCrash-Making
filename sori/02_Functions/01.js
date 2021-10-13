@@ -12,8 +12,8 @@ const average = array =>
 console.log(average(numArray));
 
 // 3. 최대값-최소값 구하기 : [10, 1]
-const max = Math.max.apply(0, numArray);
-const min = Math.min.apply(0, numArray);
+const max = Math.max(...numArray);
+const min = Math.min(...numArray);
 console.log(max, min);
 
 // 4. 누적합 : [55]
