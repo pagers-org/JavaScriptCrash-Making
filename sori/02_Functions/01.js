@@ -102,3 +102,24 @@ const duplicateArray = [
 // =========================================================
 // 9. 로또 만들기
 // =========================================================
+let num = [];
+
+for (let i = 1; i < 6; i++) {
+  for (let j = 0; j < 999; j++) {
+    let randomNum = Math.floor(Math.random() * 45) + 1;
+    {
+      if (num.indexOf(randomNum) == -1) num.push(randomNum);
+      if (num.length === 6) {
+        break;
+      }
+    }
+  }
+}
+
+function sortNum(a, b) {
+  return a - b;
+}
+
+num.sort(sortNum);
+
+console.log(num);
