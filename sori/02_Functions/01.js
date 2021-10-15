@@ -38,6 +38,21 @@ const requireSortArray = [
 // 배열 정렬하기 : 1. 아이디 순 2. 점수 순, 3. 등급 순(+,0)
 // =========================================================
 
+const sort = requireSortArray.sort((a, b) => {
+  const grade = {
+    '+': 1,
+    '-': -1,
+    [0]: 0,
+  };
+  return (
+    a[0].localeCompare(b[0]) ||
+    a[1][0].localeCompare(b[1][0]) ||
+    grade[a[1][1]] - grade[b[1][1]]
+  );
+});
+
+console.log(sort);
+
 // =========================================================
 // [6 ~ 8 대상 예제]
 const duplicateArray = [
@@ -65,6 +80,13 @@ const duplicateArray = [
 
 // 6. 중복 횟수 : 5
 
+const count = duplicateArray.reduce((acc, cur) => {
+  acc[cur] = (acc[cur] || 0) + 1;
+  return acc;
+}, {});
+
+console.log(count);
+
 // 7. 중복 요소 제거하기 : [
 //   'a',
 //   () => {
@@ -79,6 +101,13 @@ const duplicateArray = [
 //   [1, 2, 3, 4],
 //   2,
 // ]
+
+const deleteDuplicated = duplicateArray.reduce((acc, cur) => {
+  typeof cur === 'object' ? acc.add(JSON.stringify(cur)) : acc.add(cur);
+  return acc;
+}, new Set());
+
+console.log(deleteDuplicated);
 
 // 8. 중첩 배열 평탄화 : [
 //   'a',
@@ -99,27 +128,13 @@ const duplicateArray = [
 // ]
 // =========================================================
 
+const flatten = duplicateArray.reduce((acc, cur) => {
+  cur instanceof Array ? (acc = [...acc, ...cur]) : acc.push(cur);
+  return acc;
+}, []);
+
+console.log(flatten);
+
 // =========================================================
 // 9. 로또 만들기
 // =========================================================
-let num = [];
-
-for (let i = 1; i < 6; i++) {
-  for (let j = 0; j < 999; j++) {
-    let randomNum = Math.floor(Math.random() * 45) + 1;
-    {
-      if (num.indexOf(randomNum) == -1) num.push(randomNum);
-      if (num.length === 6) {
-        break;
-      }
-    }
-  }
-}
-
-function sortNum(a, b) {
-  return a - b;
-}
-
-num.sort(sortNum);
-
-console.log(num);
