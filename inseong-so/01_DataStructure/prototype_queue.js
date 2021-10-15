@@ -21,6 +21,12 @@ Queue.prototype.peek = function () {
   return this.array[this._size - 1];
 };
 
+Queue.prototype.clear = function () {
+  this.array = [];
+  this._size = 0;
+  return true;
+};
+
 const queue = new Queue();
 queue.append(1);
 queue.append(2);

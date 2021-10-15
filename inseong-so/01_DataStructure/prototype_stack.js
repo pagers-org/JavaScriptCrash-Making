@@ -21,6 +21,12 @@ Stack.prototype.peek = function () {
   return this.array[this._size - 1];
 };
 
+Stack.prototype.clear = function () {
+  this.array = [];
+  this._size = 0;
+  return true;
+};
+
 const stack = new Stack();
 stack.push(1);
 stack.push(2);
