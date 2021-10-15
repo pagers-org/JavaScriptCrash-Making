@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>커피 자판기</title>
+  <link rel="stylesheet" href="./css/app.css">
+</head>
+<style>
+
+</style>
+
+<body>
+  <div class="app">
+    <h1>카페인이 필요해🤭</h1>
+    <section data-header>
+    </section>
+    <section data-message>
+      <!-- <p class="input">2021.10.15: 1000원을 넣으셨습니다. [1000]</p>
+      <p class="output">2021.10.15: 블랙 커피를 선택하셨습니다. [-700]</p>
+      <p>거스름돈은 300원입니다.</p>
+      <p class="input">2021.10.15: 1000원을 넣으셨습니다. [1000]</p>
+      <p class="output">2021.10.15: 밀크티는 금액을 더 추가해주세요. [1000]</p>
+      <p class="input">2021.10.15: 1000원을 넣으셨습니다. [2000]</p>
+      <p class="output">2021.10.15: 밀크티를 선택하셨습니다. [-1500]</p>
+      <p>거스름돈은 500원입니다.</p> -->
+    </section>
+    <section data-input>
+      <div class="input-coin-area">
+        <label for="input-coin-text">돈을 넣어주세요!</label>
+        <input type="text" name="input-coin-text" placeholder="입력">
+        <button class="input-coin">금액 투입</button>
+      </div>
+      <div class="item-select-area">
+        <label for="item-select">커피를 선택해주세요!</label>
+        <select>
+          <option value="1">블랙 커피</option>
+          <option value="2">밀크티</option>
+          <option value="3">카푸치노</option>
+          <option value="4">라떼</option>
+          <option value="5">에이드</option>
+        </select>
+        <button class="select-coffee">커피 선택</button>
+      </div>
+    </section>
+    <section data-button>
+      <div>
+        <button class="return-coin">거스름돈</button>
+        <button class="init">초기화</button>
+      </div>
+    </section>
+  </div>
+  <script type="module" src="./index.js"></script>
+</body>
+
+</html>
