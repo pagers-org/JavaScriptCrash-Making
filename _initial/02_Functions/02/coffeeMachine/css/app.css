@@ -58,11 +58,15 @@ section[data-message] p {
 }
 
 .input {
-  color: red;
+  color: blue;
 }
 
 .output {
-  color: blue;
+  color: green;
+}
+
+.error {
+  color:red;
 }
 
 section[data-input]{

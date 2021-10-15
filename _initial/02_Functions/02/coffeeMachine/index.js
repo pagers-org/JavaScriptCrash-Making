@@ -75,10 +75,14 @@ const logger = (type, state) => {
     }
     case 'output': {
       // 가격 < 현재 투입 금액
-      // if(state)
-      // 가격 > 현재 투입 금액
-      $p.classList.add('output');
-      $p.innerHTML = `${state.time} : ${state.selectCoffee}를 선택하셨습니다. [-${state.currentCoffeeCost}]`;
+      if (state.message !== 'success') {
+        $p.classList.add('error');
+        $p.innerHTML = `${state.time} : ${state.selectCoffee}는 금액을 더 추가해주세요. [${state.totalCoins}]`;
+      } else {
+        // 가격 > 현재 투입 금액
+        $p.classList.add('output');
+        $p.innerHTML = `${state.time} : ${state.selectCoffee}를 선택하셨습니다. [-${state.currentCoffeeCost}]`;
+      }
       break;
     }
     default:
