@@ -113,6 +113,8 @@ $$button.forEach($button => {
       logger('', initialState);
     } else if (target.matches('.init')) {
       initialState = init();
+      const $message = $('[data-message]');
+      $message.innerHTML = '';
     }
     event.preventDefault();
     if (initialState.message !== 'success') {
