@@ -8,8 +8,6 @@
  * 4. 예외처리가 가능하다면 최대한 구현하세요.
  */
 
-const { arrayExpression } = require('@babel/types');
-
 // =========================================================
 const numbers = ['01012345678', '0212345678', '0311234567'];
 
@@ -51,11 +49,14 @@ const inputString = require('fs').readFileSync('./text.txt').toString();
  * @param {String} str
  * @returns {String}
  */
-function solution2(str) {
-  return str;
-}
+const countWord = str => {
+  const word = str.replace(/\r\n/g, '').split(' ');
+  const counted = {};
+  word.forEach(elem => (counted[elem] = (counted[elem] || 0) + 1));
+  return counted;
+};
 
-console.log(solution2(inputString));
+console.log(countWord(inputString));
 // =========================================================
 
 // =========================================================
@@ -68,9 +69,9 @@ const unzipedString = 'aaabbbacccadfsaaffgaabssppp';
  * @param {String} str
  * @returns {String}
  */
-function solution3(str) {
+const solution3 = str => {
   return str;
-}
+};
 
 console.log(solution3(unzipedString));
 // =========================================================
