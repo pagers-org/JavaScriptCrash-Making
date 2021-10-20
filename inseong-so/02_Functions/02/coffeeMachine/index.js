@@ -69,24 +69,30 @@ const logger = (type, state) => {
   const $p = document.createElement('p');
   switch (type) {
     case 'input': {
+      if (state.message !== 'success') {
+        return alert('옳은 금액을 넣어주세요.');
+      }
       $p.classList.add('input');
-      $p.innerHTML = `${state.time} : ${state.currentCoin}원을 넣으셨습니다. [${state.totalCoins}]`;
+      $p.innerHTML = `${state.time} : ${state.currentCoin}원을 넣으셨습니다. [투입 금액 : ${state.totalCoins}]`;
       break;
     }
     case 'output': {
       // 가격 < 현재 투입 금액
-      if (state.message !== 'success') {
+      if (state.message === 'sold-out') {
         $p.classList.add('error');
-        $p.innerHTML = `${state.time} : ${state.selectCoffee}는 금액을 더 추가해주세요. [${state.totalCoins}]`;
+        $p.innerHTML = `${state.time} : ${state.selectCoffee}는 품절된 상품입니다.`;
+      } else if (state.message !== 'success') {
+        $p.classList.add('error');
+        $p.innerHTML = `${state.time} : ${state.selectCoffee}는 금액을 더 추가해주세요. [현재 금액 : ${state.totalCoins}]`;
       } else {
         // 가격 > 현재 투입 금액
         $p.classList.add('output');
-        $p.innerHTML = `${state.time} : ${state.selectCoffee}를 선택하셨습니다. [-${state.currentCoffeeCost}]`;
+        $p.innerHTML = `${state.time} : ${state.selectCoffee}를 선택하셨습니다. [차감 금액 : -${state.currentCoffeeCost}]`;
       }
       break;
     }
     default:
-      $p.innerHTML = `거스름돈은 ${state.totalCoins}원 입니다.`;
+      $p.innerHTML = `거스름돈은 ${state.returnCoins}원 입니다.`;
       break;
   }
   $message.insertBefore($p, $message.firstChild);
@@ -109,7 +115,7 @@ $$button.forEach($button => {
       initialState = selectCoffee(index, coffee);
       logger('output', initialState);
     } else if (target.matches('.return-coin')) {
-      initialState = returnCoin(event);
+      initialState = returnCoin();
       logger('', initialState);
     } else if (target.matches('.init')) {
       initialState = init();
@@ -117,6 +123,11 @@ $$button.forEach($button => {
       $message.innerHTML = '';
     }
     event.preventDefault();
+    if (!initialState.result) {
+      render(initialState);
+      return;
+    }
+
     if (initialState.message !== 'success') {
       alert('커피를 뽑을 수 없어요 ㅠㅡㅠ');
       return;
