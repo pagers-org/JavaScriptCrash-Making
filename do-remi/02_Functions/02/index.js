@@ -41,7 +41,6 @@ function solution2(str) {
   return words.reduce((acc, cur) => {
     const withoutEscape = cur.split('\n');
     withoutEscape.forEach(elem => {
-      console.log(elem);
       acc[elem] = (acc[elem] || 0) + 1;
     });
     return acc;
