@@ -1,6 +1,3 @@
-const PHONE_PREFIX = '010';
-const SEOUL_TEL_PREFIX = '02';
-
 /**
  * 1. 주어진 문제를 해석하고 푸는 것은 자유입니다.
  *    - 꼭 자신만의 방식대로 바꿔주세요.
@@ -21,7 +18,10 @@ const numbers = ['01012345678', '0212345678', '0311234567'];
  * @param {Array} arr
  * @returns {Array}
  */
-function solution1(arr) {
+const solution1 = arr => {
+  const PHONE_PREFIX = '010';
+  const SEOUL_TEL_PREFIX = '02';
+
   const _arr = Array.from(arr).map(item => {
     let formattedString = '';
     const localNumber = item.substring(0, 3);
@@ -34,24 +34,24 @@ function solution1(arr) {
       }
     } else if (localNumber.indexOf(SEOUL_TEL_PREFIX) > -1) {
       if (item.length - 3 === 8) {
-        formattedString = `${PHONE_PREFIX}-${item.substring(
+        formattedString = `${SEOUL_TEL_PREFIX}-${item.substring(
           3,
           7,
         )}-${item.substring(7, 11)}`;
       } else {
-        formattedString = `${PHONE_PREFIX}-${item.substring(
+        formattedString = `${SEOUL_TEL_PREFIX}-${item.substring(
           3,
           7,
         )}-${item.substring(7, 11)}`;
       }
     } else {
       if (item.length - 3 === 8) {
-        formattedString = `${PHONE_PREFIX}-${item.substring(
+        formattedString = `${localNumber}-${item.substring(
           3,
           7,
         )}-${item.substring(7, 11)}`;
       } else {
-        formattedString = `${PHONE_PREFIX}-${item.substring(
+        formattedString = `${localNumber}-${item.substring(
           3,
           7,
         )}-${item.substring(7, 11)}`;
@@ -61,93 +61,137 @@ function solution1(arr) {
     return formattedString;
   });
   return _arr;
-}
+};
 
 console.log(solution1(numbers));
 // =========================================================
 
 // // =========================================================
-// const inputString = require('fs').readFileSync('./text.txt').toString();
+const inputString = require('fs').readFileSync('./text.txt').toString();
 
-// /**
-//  * 2. 문자열에서 중복되는 단어가 몇개 있는지 체크하기
-//  *    - 단어는 공백 기준으로 체크합니다.
-//  *    - 예: 단어가 단어가 단어가 중복되네요 => {단어가:3, 중복되네요:1};
-//  *
-//  * @param {String} str
-//  * @returns {String}
-//  */
-// function solution2(str) {
-//   return str;
-// }
+/**
+ * 2. 문자열에서 중복되는 단어가 몇개 있는지 체크하기
+ *    - 단어는 공백 기준으로 체크합니다.
+ *    - 예: 단어가 단어가 단어가 중복되네요 => {단어가:3, 중복되네요:1};
+ *
+ * @param {String} str
+ * @returns {String}
+ */
+const solution2 = str => {
+  const countSet = str
+    .replace(/\r\n/g, '')
+    .split(' ')
+    .reduce((returnSet, item) => {
+      returnSet[item] = returnSet[item] ? returnSet[item] + 1 : 1;
+      return returnSet;
+    }, {});
 
-// console.log(solution2(inputString));
+  return countSet;
+};
+
+console.log(solution2(inputString));
 // // =========================================================
 
 // // =========================================================
-// const unzipedString = 'aaabbbacccadfsaaffgaabssppp';
+const unzipedString = 'aaabbbacccadfsaaffgaabssppp';
 
-// /**
-//  * 3. 연속된 문자 개수를 문자열과 합쳐 반환하기
-//  *    - 예상 결과 > a3b3a1c3a1d1f1s1a2f2g1a2b1s2p3
-//  *
-//  * @param {String} str
-//  * @returns {String}
-//  */
-// function solution3(str) {
-//   return str;
-// }
+/**
+ * 3. 연속된 문자 개수를 문자열과 합쳐 반환하기
+ *    - 예상 결과 > a3b3a1c3a1d1f1s1a2f2g1a2b1s2p3
+ *
+ * @param {String} str
+ * @returns {String}
+ */
+const solution3 = str => {
+  let index = 0;
+  let zipedString = '';
+  while (index - 1 < str.length - 1) {
+    const target = str[index];
+    let count = 1;
+    for (
+      let compareIndex = index + 1;
+      compareIndex <= str.length;
+      compareIndex++
+    ) {
+      if (str[compareIndex] === str[index]) {
+        count++;
+        continue;
+      }
 
-// console.log(solution3(unzipedString));
+      zipedString += target + count;
+      count = 0;
+      index = compareIndex;
+      break;
+    }
+  }
+  return zipedString;
+};
+
+console.log(solution3(unzipedString));
 // // =========================================================
 
 // // =========================================================
-// const uglyStringArray = ['lonDon', 'ManCHESTer', 'BiRmiNGHAM', 'liVERpoOL'];
+const uglyStringArray = ['lonDon', 'ManCHESTer', 'BiRmiNGHAM', 'liVERpoOL'];
 
-// /**
-//  * 4. 대소문자 맞게 변환하기
-//  *    - 예상 결과 > [
-//                     'London',
-//                     'Manchester',
-//                     'Birmingham',
-//                     'Liverpool',
-//                     ]
-//  *
-//  * @param {Array} arr
-//  * @returns {Array}
-//  */
-// function solution4(arr) {
-//   return arr;
-// }
+/**
+ * 4. 대소문자 맞게 변환하기
+ *    - 예상 결과 > [
+                    'London',
+                    'Manchester',
+                    'Birmingham',
+                    'Liverpool',
+                    ]
+ *
+ * @param {Array} arr
+ * @returns {Array}
+ */
+const solution4 = arr => {
+  return arr.map(item => {
+    const firstString = item.substring(0, 1).toUpperCase();
+    const lowerString = item.toLowerCase().substring(1);
+    return firstString + lowerString;
+  });
+};
 
-// console.log(solution4(uglyStringArray));
+console.log(solution4(uglyStringArray));
 // // =========================================================
 
 // // =========================================================
-// const oldHashArray = [
-//   'MAN675847583748sjt567654;Manchester Piccadilly',
-//   'GNF576746573fhdg4737dh4;Greenfield',
-//   'LIV5hg65hd737456236dch46dg4;Liverpool Lime Street',
-//   'SYB4f65hf75f736463;Stalybridge',
-//   'HUD5767ghtyfyr4536dh45dg45dg3;Huddersfield',
-// ];
+const oldHashArray = [
+  'MAN675847583748sjt567654;Manchester Piccadilly',
+  'GNF576746573fhdg4737dh4;Greenfield',
+  'LIV5hg65hd737456236dch46dg4;Liverpool Lime Street',
+  'SYB4f65hf75f736463;Stalybridge',
+  'HUD5767ghtyfyr4536dh45dg45dg3;Huddersfield',
+];
 
-// /**
-//  * 4. 옳은 문자열로 반환하기
-//  *    - 예상 결과 > [
-//                       'MAN: Manchester Piccadilly',
-//                       'GNF: Greenfield',
-//                       'LIV: Liverpool Lime Street',
-//                       'SYB: Stalybridge',
-//                       'HUD: Huddersfield',
-//                     ]
-//  *
-//  * @param {Array} arr
-//  * @returns {Array}
-//  */
-// function solution5(arr) {
-//   return arr;
-// }
+/**
+ * 4. 옳은 문자열로 반환하기
+ *    - 예상 결과 > [
+                      'MAN: Manchester Piccadilly',
+                      'GNF: Greenfield',
+                      'LIV: Liverpool Lime Street',
+                      'SYB: Stalybridge',
+                      'HUD: Huddersfield',
+                    ]
+ *
+ * @param {Array} arr
+ * @returns {Array}
+ */
+const solution5 = arr => {
+  return arr.map(item => {
+    let [targetString, content] = item.split(';');
+    let index = 0;
+    for (let i = 0; i < targetString.length; i++) {
+      if (!isNaN(targetString[i] % 2)) {
+        index = i;
+        break;
+      }
+    }
+    targetString = targetString.substring(0, index);
+    return `${targetString}: ${content}`;
+  });
+};
 
-// console.log(solution5(oldHashArray));
+console.log(solution5(oldHashArray));
 // // =========================================================
