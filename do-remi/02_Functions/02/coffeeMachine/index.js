@@ -69,15 +69,24 @@ const logger = (type, state) => {
   const $p = document.createElement('p');
   switch (type) {
     case 'input': {
-      $p.classList.add('input');
-      $p.innerHTML = `${state.time} : ${state.currentCoin}원을 넣으셨습니다. [${state.totalCoins}]`;
+      if (state.inputError) {
+        $p.classList.add('input');
+        $p.innerHTML = `${state.time} : 잘못된 금액 형식 입니다. [${state.totalCoins}]`;
+      } else {
+        $p.classList.add('input');
+        $p.innerHTML = `${state.time} : ${state.currentCoin}원을 넣으셨습니다. [${state.totalCoins}]`;
+      }
       break;
     }
     case 'output': {
       // 가격 < 현재 투입 금액
-      if (state.message !== 'success') {
+      if (state.message === 'fail') {
         $p.classList.add('error');
         $p.innerHTML = `${state.time} : ${state.selectCoffee}는 금액을 더 추가해주세요. [${state.totalCoins}]`;
+      } else if (state.message === 'empty') {
+        console.log(' ### ');
+        $p.classList.add('error');
+        $p.innerHTML = `${state.time} : ${state.selectCoffee}는 매진되었습니다.`;
       } else {
         // 가격 > 현재 투입 금액
         $p.classList.add('output');
@@ -85,8 +94,13 @@ const logger = (type, state) => {
       }
       break;
     }
-    default:
+    case 'return':
       $p.innerHTML = `거스름돈은 ${state.totalCoins}원 입니다.`;
+      break;
+    default:
+      while ($message.hasChildNodes()) {
+        $message.removeChild($message.firstChild);
+      }
       break;
   }
   $message.insertBefore($p, $message.firstChild);
@@ -110,9 +124,10 @@ $$button.forEach($button => {
       logger('output', initialState);
     } else if (target.matches('.return-coin')) {
       initialState = returnCoin(event);
-      logger('', initialState);
+      logger('return', initialState);
     } else if (target.matches('.init')) {
       initialState = init();
+      logger('reset');
     }
     event.preventDefault();
     if (initialState.message !== 'success') {
