@@ -1,6 +1,7 @@
 let initialState = {
-  coins: 0,
+  totalCoins: 0,
   currentCoin: 0,
+  // 비어있는 상태 값이 있습니다.
   coffees: [
     { id: 1, kind: '블랙 커피', price: 700, remain: 9 },
     { id: 2, kind: '밀크티', price: 1500, remain: 5 },
