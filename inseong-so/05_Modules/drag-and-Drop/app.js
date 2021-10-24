@@ -21,7 +21,6 @@ container.addEventListener('dragover', event => {
   event.preventDefault();
   const afterElement = dragBetweenElement(container, event.clientY);
   const dragging = document.querySelector('.dragging');
-  container.appendChild(dragging);
   if (afterElement === null) {
     container.appendChild(dragging);
   } else {
